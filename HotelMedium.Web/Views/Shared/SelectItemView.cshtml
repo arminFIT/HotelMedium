@@ -1,0 +1,3 @@
+﻿@model HotelMedium.Web.Models.ClientViewModels.ClientAddVM
+
+<select asp-for="city" asp-items="@(new SelectList(Model.cities,"CityId","Name"))"></select>

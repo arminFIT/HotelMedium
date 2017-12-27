@@ -1,0 +1,75 @@
+﻿@model HotelMedium.Web.Models.ClientViewModels.ClientAddVM
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" asp-action="Add" asp-controller="Client">
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" />
+    <br />
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+    <br />
+    <label asp-for="Phone"></label>
+    <input asp-for="Phone" />
+    <br />
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <br />
+    <label asp-for="Address"></label>
+    <input asp-for="Address" />
+    <br />
+    <label asp-for="CreditCardNumber"></label>
+    <input asp-for="CreditCardNumber" />
+    <br />
+    <label asp-for="CreditCardCsc"></label>
+    <input asp-for="CreditCardCsc" />
+    <br />
+    <label asp-for="DateCardExpiration"></label>
+    <input asp-for="DateCardExpiration" />
+    <br />
+    <label asp-for="Sex"></label>
+    <input asp-for="Sex" />
+    <br />
+
+    <select id="proba" asp-for="country" asp-items="@(new SelectList(Model.countries,"CountryId","Name"))" onchange="DoSomething();"></select>
+
+    <div id="div1">
+        @Html.Partial("SelectItemView", Model)
+    </div>
+    <input type="submit" value="klik"/>
+
+
+
+</form>
+
+
+<script>
+
+    function DoSomething() {
+        var a = $("#proba option:selected").val();
+
+        $.ajax({
+            url: '@Url.Action("GetData", "Client")',
+            type: 'POST',
+            data: {'id':a},
+            success: function (result) {
+               //success
+                $("#div1").html(result);
+            },
+            error: function (error) {
+               //error
+                alert("Error");
+            }
+         });
+
+    }
+</script>
+
+
